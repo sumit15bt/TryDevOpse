@@ -1,0 +1,28 @@
+docker Practised Commands----->
+
+----------- BASIC ------------
+docker version 
+docker -v    // see docker version
+docker info // docker general infomation
+docker --help
+docker login // for login with dockerHub creation . one can create and pull/push image from dockerHub
+
+----------IMAGES-------------
+docker images  // to show images in docker
+docker pull    // to pull images from dockerHub
+docker rmi     // docker rmi -f [imageId]  to remove images
+
+-------------CONTAINERS -------------
+docker ps
+docker run       // docker run [image]  to instatiate or container creation of images
+docker start    // docker start [CONTAINER ID]  to start container
+docker stop	// docker stop [CONTAINER ID]   to stop container   
+
+------------SYSTEM---------------
+docker stats   // Display a live stream of container(s) resource usage statistics
+docker system df // Remove unused data 
+docker system prune //Show docker disk usage
+
+
+--------------------------------
+docker [anyCommand] --help // for knowing about doing of the cmd
