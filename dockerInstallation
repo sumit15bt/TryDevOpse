@@ -1,0 +1,159 @@
+ROOT1@ROOT1-THINKPAD-L430:~$ docker --version
+
+Command 'docker' not found, but can be installed with:
+
+sudo snap install docker     # version 19.03.11, or
+sudo apt  install docker.io
+
+See 'snap info docker' for additional versions.
+
+ROOT1@ROOT1-THINKPAD-L430:~$ curl -fsSl https://get.docker.com -o get-docker.sh
+
+Command 'curl' not found, but can be installed with:
+
+sudo apt install curl
+
+ROOT1@ROOT1-THINKPAD-L430:~$ sudo apt install curl
+[sudo] password for root1: 
+Sorry, try again.
+[sudo] password for root1: 
+Reading package lists... Done
+Building dependency tree       
+Reading state information... Done
+The following packages were automatically installed and are no longer required:
+  linux-headers-4.15.0-88 linux-headers-4.15.0-88-generic
+  linux-image-4.15.0-88-generic linux-modules-4.15.0-88-generic
+  linux-modules-extra-4.15.0-88-generic
+Use 'sudo apt autoremove' to remove them.
+The following NEW packages will be installed:
+  curl
+0 upgraded, 1 newly installed, 0 to remove and 156 not upgraded.
+Need to get 159 kB of archives.
+After this operation, 396 kB of additional disk space will be used.
+Get:1 http://in.archive.ubuntu.com/ubuntu bionic-updates/main amd64 curl amd64 7.58.0-2ubuntu3.8 [159 kB]
+Fetched 159 kB in 2s (72.0 kB/s)                            
+Selecting previously unselected package curl.
+(Reading database ... 238965 files and directories currently installed.)
+Preparing to unpack .../curl_7.58.0-2ubuntu3.8_amd64.deb ...
+Unpacking curl (7.58.0-2ubuntu3.8) ...
+Setting up curl (7.58.0-2ubuntu3.8) ...
+Processing triggers for man-db (2.8.3-2ubuntu0.1) ...
+ROOT1@ROOT1-THINKPAD-L430:~$ curl -fsSl https://get.docker.com -o get-docker.sh
+ROOT1@ROOT1-THINKPAD-L430:~$ sudo sh get-docker.sh 
+# Executing docker install script, commit: 26ff363bcf3b3f5a00498ac43694bf1c7d9ce16c
++ sh -c apt-get update -qq >/dev/null
++ sh -c DEBIAN_FRONTEND=noninteractive apt-get install -y -qq apt-transport-https ca-certificates curl >/dev/null
++ sh -c curl -fsSL "https://download.docker.com/linux/ubuntu/gpg" | apt-key add -qq - >/dev/null
+Warning: apt-key output should not be parsed (stdout is not a terminal)
++ sh -c echo "deb [arch=amd64] https://download.docker.com/linux/ubuntu bionic stable" > /etc/apt/sources.list.d/docker.list
++ sh -c apt-get update -qq >/dev/null
++ [ -n  ]
++ sh -c apt-get install -y -qq --no-install-recommends docker-ce >/dev/null
++ sh -c docker version
+Client: Docker Engine - Community
+ Version:           19.03.11
+ API version:       1.40
+ Go version:        go1.13.10
+ Git commit:        42e35e61f3
+ Built:             Mon Jun  1 09:12:22 2020
+ OS/Arch:           linux/amd64
+ Experimental:      false
+
+Server: Docker Engine - Community
+ Engine:
+  Version:          19.03.11
+  API version:      1.40 (minimum version 1.12)
+  Go version:       go1.13.10
+  Git commit:       42e35e61f3
+  Built:            Mon Jun  1 09:10:54 2020
+  OS/Arch:          linux/amd64
+  Experimental:     false
+ containerd:
+  Version:          1.2.13
+  GitCommit:        7ad184331fa3e55e52b890ea95e65ba581ae3429
+ runc:
+  Version:          1.0.0-rc10
+  GitCommit:        dc9208a3303feef5b3839f4323d9beb36df0a9dd
+ docker-init:
+  Version:          0.18.0
+  GitCommit:        fec3683
+If you would like to use Docker as a non-root user, you should now consider
+adding your user to the "docker" group with something like:
+
+  sudo usermod -aG docker your-user
+
+Remember that you will have to log out and back in for this to take effect!
+
+WARNING: Adding a user to the "docker" group will grant the ability to run
+         containers which can be used to obtain root privileges on the
+         docker host.
+         Refer to https://docs.docker.com/engine/security/security/#docker-daemon-attack-surface
+         for more information.
+ROOT1@ROOT1-THINKPAD-L430:~$ docker --version
+Docker version 19.03.11, build 42e35e61f3
+ROOT1@ROOT1-THINKPAD-L430:~$ docker run hello-world
+docker: Got permission denied while trying to connect to the Docker daemon socket at unix:///var/run/docker.sock: Post http://%2Fvar%2Frun%2Fdocker.sock/v1.40/containers/create: dial unix /var/run/docker.sock: connect: permission denied.
+See 'docker run --help'.
+ROOT1@ROOT1-THINKPAD-L430:~$ sudo usermod -aG docker root1
+ROOT1@ROOT1-THINKPAD-L430:~$ docker run hello-world
+docker: Got permission denied while trying to connect to the Docker daemon socket at unix:///var/run/docker.sock: Post http://%2Fvar%2Frun%2Fdocker.sock/v1.40/containers/create: dial unix /var/run/docker.sock: connect: permission denied.
+See 'docker run --help'.
+ROOT1@ROOT1-THINKPAD-L430:~$ sudo usermod -aG docker sumit
+usermod: user 'sumit' does not exist
+ROOT1@ROOT1-THINKPAD-L430:~$ sudo usermod -aG docker root1
+ROOT1@ROOT1-THINKPAD-L430:~$ docker run hello-world
+docker: Got permission denied while trying to connect to the Docker daemon socket at unix:///var/run/docker.sock: Post http://%2Fvar%2Frun%2Fdocker.sock/v1.40/containers/create: dial unix /var/run/docker.sock: connect: permission denied.
+See 'docker run --help'.
+ROOT1@ROOT1-THINKPAD-L430:~$ sudo chmod 666 /var/run/docker.sock
+ROOT1@ROOT1-THINKPAD-L430:~$ docker run hello-world
+Unable to find image 'hello-world:latest' locally
+latest: Pulling from library/hello-world
+0e03bdcc26d7: Pull complete 
+Digest: sha256:d58e752213a51785838f9eed2b7a498ffa1cb3aa7f946dda11af39286c3db9a9
+Status: Downloaded newer image for hello-world:latest
+
+Hello from Docker!
+This message shows that your installation appears to be working correctly.
+
+To generate this message, Docker took the following steps:
+ 1. The Docker client contacted the Docker daemon.
+ 2. The Docker daemon pulled the "hello-world" image from the Docker Hub.
+    (amd64)
+ 3. The Docker daemon created a new container from that image which runs the
+    executable that produces the output you are currently reading.
+ 4. The Docker daemon streamed that output to the Docker client, which sent it
+    to your terminal.
+
+To try something more ambitious, you can run an Ubuntu container with:
+ $ docker run -it ubuntu bash
+
+Share images, automate workflows, and more with a free Docker ID:
+ https://hub.docker.com/
+
+For more examples and ideas, visit:
+ https://docs.docker.com/get-started/
+
+ROOT1@ROOT1-THINKPAD-L430:~$ docker run hello-world
+
+Hello from Docker!
+This message shows that your installation appears to be working correctly.
+
+To generate this message, Docker took the following steps:
+ 1. The Docker client contacted the Docker daemon.
+ 2. The Docker daemon pulled the "hello-world" image from the Docker Hub.
+    (amd64)
+ 3. The Docker daemon created a new container from that image which runs the
+    executable that produces the output you are currently reading.
+ 4. The Docker daemon streamed that output to the Docker client, which sent it
+    to your terminal.
+
+To try something more ambitious, you can run an Ubuntu container with:
+ $ docker run -it ubuntu bash
+
+Share images, automate workflows, and more with a free Docker ID:
+ https://hub.docker.com/
+
+For more examples and ideas, visit:
+ https://docs.docker.com/get-started/
+
+ROOT1@ROOT1-THINKPAD-L430:~$

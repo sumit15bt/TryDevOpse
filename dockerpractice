@@ -1,0 +1,200 @@
+---->>>>root1@root1-ThinkPad-L430:~$ cat /etc/issue
+Ubuntu 18.04.4 LTS \n \l
+
+---->>>>root1@root1-ThinkPad-L430:~$ docker ps
+CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS               NAMES
+1909f08145ca        ubuntu              "/bin/bash"         5 minutes ago       Up 4 minutes                            unruffled_mcnulty
+---->>>>root1@root1-ThinkPad-L430:~$ docker start 1909f08145ca
+1909f08145ca
+---->>>>root1@root1-ThinkPad-L430:~$ docker stop 1909f08145ca
+1909f08145ca
+---->>>>root1@root1-ThinkPad-L430:~$ cat /etc/issue
+Ubuntu 18.04.4 LTS \n \l
+
+---->>>>root1@root1-ThinkPad-L430:~$ docker ps
+CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS               NAMES
+1802d028ef6c        ubuntu              "/bin/bash"         2 minutes ago       Up 2 minutes                            elegant_hamilton
+---->>>>root1@root1-ThinkPad-L430:~$ docker stop 1802d028ef6c
+1802d028ef6c
+---->>>>root1@root1-ThinkPad-L430:~$ docker rmi --help
+
+Usage:	docker rmi [OPTIONS] IMAGE [IMAGE...]
+
+Remove one or more images
+
+Options:
+  -f, --force      Force removal of the image
+      --no-prune   Do not delete untagged parents
+---->>>>root1@root1-ThinkPad-L430:~$ docker images
+REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
+ubuntu              latest              1d622ef86b13        7 weeks ago         73.9MB
+---->>>>root1@root1-ThinkPad-L430:~$ docker pull hello-world
+Using default tag: latest
+latest: Pulling from library/hello-world
+0e03bdcc26d7: Pull complete 
+Digest: sha256:d58e752213a51785838f9eed2b7a498ffa1cb3aa7f946dda11af39286c3db9a9
+Status: Downloaded newer image for hello-world:latest
+docker.io/library/hello-world:latest
+---->>>>root1@root1-ThinkPad-L430:~$ docker run hello-world
+
+Hello from Docker!
+This message shows that your installation appears to be working correctly.
+
+To generate this message, Docker took the following steps:
+ 1. The Docker client contacted the Docker daemon.
+ 2. The Docker daemon pulled the "hello-world" image from the Docker Hub.
+    (amd64)
+ 3. The Docker daemon created a new container from that image which runs the
+    executable that produces the output you are currently reading.
+ 4. The Docker daemon streamed that output to the Docker client, which sent it
+    to your terminal.
+
+To try something more ambitious, you can run an Ubuntu container with:
+ $ docker run -it ubuntu bash
+
+Share images, automate workflows, and more with a free Docker ID:
+ https://hub.docker.com/
+
+For more examples and ideas, visit:
+ https://docs.docker.com/get-started/
+
+---->>>>root1@root1-ThinkPad-L430:~$ docker ps
+CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS               NAMES
+---->>>>root1@root1-ThinkPad-L430:~$ docker rmi 
+"docker rmi" requires at least 1 argument.
+See 'docker rmi --help'.
+
+Usage:  docker rmi [OPTIONS] IMAGE [IMAGE...]
+
+Remove one or more images
+---->>>>root1@root1-ThinkPad-L430:~$ docker images
+REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
+ubuntu              latest              1d622ef86b13        7 weeks ago         73.9MB
+hello-world         latest              bf756fb1ae65        5 months ago        13.3kB
+---->>>>root1@root1-ThinkPad-L430:~$ docker rmi bf756fb1ae65
+Error response from daemon: conflict: unable to delete bf756fb1ae65 (must be forced) - image is being used by stopped container a652130c112a
+---->>>>root1@root1-ThinkPad-L430:~$ docker stop bf756fb1ae65
+Error response from daemon: No such container: bf756fb1ae65
+---->>>>root1@root1-ThinkPad-L430:~$ docker rmi -f bf756fb1ae65
+Untagged: hello-world:latest
+Untagged: hello-world@sha256:d58e752213a51785838f9eed2b7a498ffa1cb3aa7f946dda11af39286c3db9a9
+Deleted: sha256:bf756fb1ae65adf866bd8c456593cd24beb6a0a061dedf42b26a993176745f6b
+---->>>>root1@root1-ThinkPad-L430:~$ docker images
+REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
+ubuntu              latest              1d622ef86b13        7 weeks ago         73.9MB
+---->>>>root1@root1-ThinkPad-L430:~$
+---->>>>root1@root1-ThinkPad-L430:~$ docker stats 
+
+CONTAINER ID        NAME                CPU %               MEM USAGE / LIMIT   MEM %               NET I/O             BLOCK I/O           PIDS
+
+-----------
+
+CONTAINER ID        NAME                CPU %               MEM USAGE / LIMIT    MEM %               NET I/O             BLOCK I/O           PIDS
+acd5694f5a47        nice_curie          0.00%               1.73MiB / 7.379GiB   0.02%               6.04kB / 0B         0B / 0B             1
+^C
+---->>>>root1@root1-ThinkPad-L430:~$ docker system df
+TYPE                TOTAL               ACTIVE              SIZE                RECLAIMABLE
+Images              2                   2                   73.87MB             0B (0%)
+Containers          7                   1                   33B                 33B (100%)
+Local Volumes       0                   0                   0B                  0B
+Build Cache         0                   0                   0B                  0B
+---->>>>root1@root1-ThinkPad-L430:~$ docker system prune -- help
+"docker system prune" accepts no arguments.
+See 'docker system prune --help'.
+
+Usage:  docker system prune [OPTIONS]
+
+Remove unused data
+---->>>>root1@root1-ThinkPad-L430:~$ docker system prune --help
+
+Usage:	docker system prune [OPTIONS]
+
+Remove unused data
+
+Options:
+  -a, --all             Remove all unused images not just dangling ones
+      --filter filter   Provide filter values (e.g. 'label=<key>=<value>')
+  -f, --force           Do not prompt for confirmation
+      --volumes         Prune volumes
+---->>>>root1@root1-ThinkPad-L430:~$ docker system prune
+WARNING! This will remove:
+  - all stopped containers
+  - all networks not used by at least one container
+  - all dangling images
+  - all dangling build cache
+
+Are you sure you want to continue? [y/N] N
+---->>>>root1@root1-ThinkPad-L430:~$ docker ps
+CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS               NAMES
+acd5694f5a47        ubuntu              "/bin/bash"         3 minutes ago       Up 3 minutes                            nice_curie
+---->>>>root1@root1-ThinkPad-L430:~$ docker images
+REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
+ubuntu              latest              1d622ef86b13        7 weeks ago         73.9MB
+hello-world         latest              bf756fb1ae65        5 months ago        13.3kB
+---->>>>root1@root1-ThinkPad-L430:~$ docker system prune
+WARNING! This will remove:
+  - all stopped containers
+  - all networks not used by at least one container
+  - all dangling images
+  - all dangling build cache
+
+Are you sure you want to continue? [y/N] y
+Deleted Containers:
+3f2003814362f9a0cebe940cf13bb8539d08db172396e89d3e2c323b7eaa6826
+1909f08145caac30f6cdde77ecb99814d55b0e7f4b412af84d9396752ab11f7f
+2d3b1000f31075e88027403d6a6449708ea88312d908531d4dda7dc0e2b13382
+898154d20b1bfe9575bc4c9500f42430123e74bb946b7a7c8e3e9f7491d8be1b
+ae2a398b76dda5d567244899ff8ef1cd60b72d08d9fce615914f00be0780ad41
+757247cd8e10a07c76850c4ba645fa79cf3d2df1eea04b36fafbb0b58d34fd6c
+
+Total reclaimed space: 33B
+---->>>>root1@root1-ThinkPad-L430:~$ docker images
+REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
+ubuntu              latest              1d622ef86b13        7 weeks ago         73.9MB
+hello-world         latest              bf756fb1ae65        5 months ago        13.3kB
+---->>>>root1@root1-ThinkPad-L430:~$ docker ps
+CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS               NAMES
+acd5694f5a47        ubuntu              "/bin/bash"         4 minutes ago       Up 4 minutes                            nice_curie
+---->>>>root1@root1-ThinkPad-L430:~$ docker stop acd5694f5a47
+acd5694f5a47
+---->>>>root1@root1-ThinkPad-L430:~$ docker system prune
+WARNING! This will remove:
+  - all stopped containers
+  - all networks not used by at least one container
+  - all dangling images
+  - all dangling build cache
+
+Are you sure you want to continue? [y/N] y
+Deleted Containers:
+acd5694f5a474ea758436d041d76363c2fdeec3ee0dd9424bb1fe04260fbebe7
+
+Total reclaimed space: 0B
+---->>>>root1@root1-ThinkPad-L430:~$ docker ps
+CONTAINER ID        IMAGE               COMMAND             CREATED             STATUS              PORTS               NAMES
+---->>>>root1@root1-ThinkPad-L430:~$ docker images
+REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
+ubuntu              latest              1d622ef86b13        7 weeks ago         73.9MB
+hello-world         latest              bf756fb1ae65        5 months ago        13.3kB
+---->>>>root1@root1-ThinkPad-L430:~$ docker system prune -a
+WARNING! This will remove:
+  - all stopped containers
+  - all networks not used by at least one container
+  - all images without at least one container associated to them
+  - all build cache
+
+Are you sure you want to continue? [y/N] y
+Deleted Images:
+untagged: ubuntu:latest
+untagged: ubuntu@sha256:747d2dbbaaee995098c9792d99bd333c6783ce56150d1b11e333bbceed5c54d7
+deleted: sha256:1d622ef86b138c7e96d4f797bf5e4baca3249f030c575b9337638594f2b63f01
+deleted: sha256:279e836b58d9996b5715e82a97b024563f2b175e86a53176846684f0717661c3
+deleted: sha256:39865913f677c50ea236b68d81560d8fefe491661ce6e668fd331b4b680b1d47
+deleted: sha256:cac81188485e011e56459f1d9fc9936625a1b62cacdb4fcd3526e5f32e280387
+deleted: sha256:7789f1a3d4e9258fbe5469a8d657deb6aba168d86967063e9b80ac3e1154333f
+untagged: hello-world:latest
+untagged: hello-world@sha256:d58e752213a51785838f9eed2b7a498ffa1cb3aa7f946dda11af39286c3db9a9
+deleted: sha256:bf756fb1ae65adf866bd8c456593cd24beb6a0a061dedf42b26a993176745f6b
+deleted: sha256:9c27e219663c25e0f28493790cc0b88bc973ba3b1686355f221c38a36978ac63
+
+Total reclaimed space: 73.87MB
+---->>>>root1@root1-ThinkPad-L430:~$ 
