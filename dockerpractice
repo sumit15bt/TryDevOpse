@@ -198,3 +198,85 @@ deleted: sha256:9c27e219663c25e0f28493790cc0b88bc973ba3b1686355f221c38a36978ac63
 
 Total reclaimed space: 73.87MB
 ---->>>>root1@root1-ThinkPad-L430:~$ 
+
+
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++DOCKER FILE+++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+root1@root1-ThinkPad-L430:~/Desktop/devopsTraining$ cd DockerFiles/
+root1@root1-ThinkPad-L430:~/Desktop/devopsTraining/DockerFiles$ touch Dockerfileroot1@root1-ThinkPad-L430:~/Desktop/devopsTraining/DockerFiles$ vim Dockerfile 
+root1@root1-ThinkPad-L430:~/Desktop/devopsTraining/DockerFiles$ cat Dockerfile 
+root1@root1-ThinkPad-L430:~/Desktop/devopsTraining/DockerFiles$ vim Dockerfile 
+root1@root1-ThinkPad-L430:~/Desktop/devopsTraining/DockerFiles$ cat Dockerfile 
+# getting base image from ubuntu
+FROM ubuntu
+# for  empty image -> FROM scratch.
+# maintainer optional
+MAINTAINER Sumit <smt1997sharma@gmail.com>
+# RUN cmd executed when build for image
+RUN apt-get update
+# CMD get executed when container created out of image
+CMD ["echo","Hello ubuntu container creted from DockerFile..."]
+
+root1@root1-ThinkPad-L430:~/Desktop/devopsTraining/DockerFiles$ docker build -t myImage1:1.0 .
+invalid argument "myImage1:1.0" for "-t, --tag" flag: invalid reference format: repository name must be lowercase
+See 'docker build --help'.
+root1@root1-ThinkPad-L430:~/Desktop/devopsTraining/DockerFiles$ docker build -t myimage1:1.0 .
+Sending build context to Docker daemon  2.048kB
+Step 1/4 : FROM ubuntu
+latest: Pulling from library/ubuntu
+a4a2a29f9ba4: Pull complete 
+127c9761dcba: Pull complete 
+d13bf203e905: Pull complete 
+4039240d2e0b: Pull complete 
+Digest: sha256:35c4a2c15539c6c1e4e5fa4e554dac323ad0107d8eb5c582d6ff386b383b7dce
+Status: Downloaded newer image for ubuntu:latest
+ ---> 74435f89ab78
+Step 2/4 : MAINTAINER Sumit <smt1997sharma@gmail.com>
+ ---> Running in 596b0981c92e
+Removing intermediate container 596b0981c92e
+ ---> 80940f9f4207
+Step 3/4 : RUN apt-get update
+ ---> Running in 24e93ab0afa3
+Get:1 http://security.ubuntu.com/ubuntu focal-security InRelease [107 kB]
+Get:2 http://archive.ubuntu.com/ubuntu focal InRelease [265 kB]
+Get:3 http://security.ubuntu.com/ubuntu focal-security/main amd64 Packages [133 kB]
+Get:4 http://archive.ubuntu.com/ubuntu focal-updates InRelease [107 kB]
+Get:5 http://archive.ubuntu.com/ubuntu focal-backports InRelease [98.3 kB]
+Get:6 http://security.ubuntu.com/ubuntu focal-security/universe amd64 Packages [42.3 kB]
+Get:7 http://security.ubuntu.com/ubuntu focal-security/multiverse amd64 Packages [1077 B]
+Get:8 http://security.ubuntu.com/ubuntu focal-security/restricted amd64 Packages [13.2 kB]
+Get:9 http://archive.ubuntu.com/ubuntu focal/restricted amd64 Packages [33.4 kB]
+Get:10 http://archive.ubuntu.com/ubuntu focal/universe amd64 Packages [11.3 MB]
+Get:11 http://archive.ubuntu.com/ubuntu focal/multiverse amd64 Packages [177 kB]
+Get:12 http://archive.ubuntu.com/ubuntu focal/main amd64 Packages [1275 kB]
+Get:13 http://archive.ubuntu.com/ubuntu focal-updates/restricted amd64 Packages [13.2 kB]
+Get:14 http://archive.ubuntu.com/ubuntu focal-updates/universe amd64 Packages [137 kB]
+Get:15 http://archive.ubuntu.com/ubuntu focal-updates/multiverse amd64 Packages [1077 B]
+Get:16 http://archive.ubuntu.com/ubuntu focal-updates/main amd64 Packages [254 kB]
+Get:17 http://archive.ubuntu.com/ubuntu focal-backports/universe amd64 Packages [2900 B]
+Fetched 14.0 MB in 16s (851 kB/s)
+Reading package lists...
+Removing intermediate container 24e93ab0afa3
+ ---> 1ecbf97e578e
+Step 4/4 : CMD ["echo","Hello ubuntu container creted from DockerFile..."]
+ ---> Running in 119369bf4d60
+Removing intermediate container 119369bf4d60
+ ---> ac3ab9d82366
+Successfully built ac3ab9d82366
+Successfully tagged myimage1:1.0
+root1@root1-ThinkPad-L430:~/Desktop/devopsTraining/DockerFiles$ docker images
+REPOSITORY          TAG                 IMAGE ID            CREATED             SIZE
+myimage1            1.0                 ac3ab9d82366        38 seconds ago      95.9MB
+ubuntu              latest              74435f89ab78        4 days ago          73.9MB
+jenkins             latest              cd14cecfdb3a        23 months ago       696MB
+root1@root1-ThinkPad-L430:~/Desktop/devopsTraining/DockerFiles$ docker run myimage1
+Unable to find image 'myimage1:latest' locally
+docker: Error response from daemon: pull access denied for myimage1, repository does not exist or may require 'docker login': denied: requested access to the resource is denied.
+See 'docker run --help'.
+root1@root1-ThinkPad-L430:~/Desktop/devopsTraining/DockerFiles$ docker run ac3ab9d82366
+Hello ubuntu container creted from DockerFile...
+root1@root1-ThinkPad-L430:~/Desktop/devopsTraining/DockerFiles$ docker run -it ac3ab9d82366
+Hello ubuntu container creted from DockerFile...
+root1@root1-ThinkPad-L430:~/Desktop/devopsTraining/DockerFiles$ 
+

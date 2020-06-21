@@ -1,4 +1,12 @@
-docker Practised Commands----->
+++++++++++++++++++++++++++++++++++++++++++++++++++++DOCKER Artitechure+++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+	   CLIENT		 DOCKER_HOST		REGISTRY (Docker Hub)
+	 1.docker build		1.Docker Daemon
+	 2.docker pull		2.(a) Containers
+	 3.docker run 		  (b) Images
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++++
+rmidockdocker Practised Commands----->
 
 ----------- BASIC ------------
 docker version 
@@ -13,7 +21,9 @@ docker pull    // to pull images from dockerHub
 docker rmi     // docker rmi -f [imageId]  to remove images
 
 -------------CONTAINERS -------------
-docker ps
+docker ps // docker running container
+docker ps -a // all containers
+docker rm <container name | Id> // remove container
 docker run       // docker run [image]  to instatiate or container creation of images
 docker start    // docker start [CONTAINER ID]  to start container
 docker stop	// docker stop [CONTAINER ID]   to stop container   
@@ -22,7 +32,41 @@ docker stop	// docker stop [CONTAINER ID]   to stop container
 docker stats   // Display a live stream of container(s) resource usage statistics
 docker system df // Remove unused data 
 docker system prune //Show docker disk usage
+--------------------------------------------------------------------------------
 
 
 --------------------------------
 docker [anyCommand] --help // for knowing about doing of the cmd
+
+
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++JENKINS+++++++++++++++++++++++++++++++++++++++++++++++++++++
+docker volumme create MyVolume
+docker volume ls
+docker inspect MyVolume 
+docker run --name <nameOFContainer> -pp <port>:8080 -v <directory>:/var/jenkins_home jenkins
+docker run --name myJenkins -p 8080:8080 -p 50000:50000 -v MyVolume:/var/jenkins_home jenkins 
+OR    docker run --name myJenkins -p 8080:8080 -p 50000:50000 -v <directoryPath>:/var/jenkins_home jenkins 
+docker inspect myJenkin
+
+++++++++++++++++++++++++++++++++++++++++++++++++++++DOCKER FILE+++++++++++++++++++++++++++++++++++++++++++++++++++++
+
+1. DockerFile  :-> text file with instruction to build image (Automation of Docker image creation).
+  			{DockerFile -> Docker Build -> Docker Image}
+2. how to create :->  touch Dokerfile -> vim Dockerfile (:wq!).
+3. build image from docker  :-> 
+	1. (docker build .) for if file exist in same directory  OR 
+	2. (docker build <path>) OR 
+	3. (docker build -t myImage1:1.0 .) for same directory file
+4. basic commands (FROM / RUN / CMD)
+
+STEPS:- 
+1. create file name Dockerfile
+2. Add instruction in the same file created
+3. build dockerfile to create image
+4. run image to create container
+
+Link : HTTPS://DOCS.DOCKER.COM/ENGINE/REFERENCE/BUILDER/
+
+
+
